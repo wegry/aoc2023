@@ -1,0 +1,5 @@
+bin/
+puzzle_input/
+obj/
+.DS_Store
+.fake
