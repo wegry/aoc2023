@@ -99,7 +99,7 @@ let part_1 () = input |> part_1_ |> printfn "%A"
 
 let part_2 () = input |> part_2_ |> printfn "%A"
 
-let parts = (System.Int32.MaxValue, part_1, part_2)
+let parts = (2, part_1, part_2)
 
 module Tests =
     let testInput =

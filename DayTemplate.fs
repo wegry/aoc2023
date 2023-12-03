@@ -2,10 +2,9 @@ module DayXX
 
 open System.IO
 
-let parse (input) = input |> Array.ofSeq
+let parse (input: string seq) = input |> Array.ofSeq
 
-let input =
-    File.ReadLines("puzzle_input/day_XX") |> parse
+let input = File.ReadLines("puzzle_input/day_XX") |> parse
 
 let part_1_ (input) = "stub"
 
