@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="*.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="src/*.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
 
 </Project>

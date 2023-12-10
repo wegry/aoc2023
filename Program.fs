@@ -1,6 +1,6 @@
 ﻿type Day = int * (unit -> unit) * (unit -> unit)
 
-let Days: Day[] = [| Day03.parts; Day02.parts; Day01.parts |]
+let Days: Day[] = [| Day04.parts; Day03.parts; Day02.parts; Day01.parts |]
 
 // https://stackoverflow.com/a/4646066/1924257
 let duration f =
