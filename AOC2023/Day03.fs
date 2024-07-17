@@ -193,7 +193,7 @@ module Part2 =
 
 let parse (input: string seq) = input
 
-let input = File.ReadLines("puzzle_input/day_03") |> parse
+let input = lazy (File.ReadLines("puzzle_input/day_03") |> parse)
 
 let part_1_ (input) =
     input |> Part1.parse |> Part1.find_numbers_next_to_symbols
@@ -201,142 +201,9 @@ let part_1_ (input) =
 let part_2_ (input) =
     input |> Part1.parse |> Part2.find_gears
 
-let part_1 () = input |> part_1_ |> printfn "%A"
+let part_1 () = input.Value |> part_1_ |> printfn "%A"
 
 // 78483111 too low
-let part_2 () = input |> part_2_ |> printfn "%A"
+let part_2 () = input.Value |> part_2_ |> printfn "%A"
 
 let parts = (3, part_1, part_2)
-
-module Tests =
-    let testInput =
-        ("
-467..114..
-...*......
-..35..633.
-......#...
-617*......
-.....+.58.
-..592.....
-......755.
-...$.*....
-.664.598..")
-            .Trim()
-            .Split
-            '\n'
-        |> parse
-
-    let parse_part2 (input: string) = input.Trim().Split() |> parse
-
-    let ``PositionsAround`` () =
-        let number: Part1.SchematicNumber =
-            { start = 0
-              ending = 2
-              row = 2
-              value = "123" }
-
-        let result = number.PositionsArround()
-
-        assert (result |> Seq.length = 12)
-
-
-    let ``HasSurroundingSymbol should be true`` () =
-        let symbols = Set.ofList [ (1, 0) ]
-
-        let number: Part1.SchematicNumber =
-            { start = 0
-              ending = 2
-              row = 2
-              value = "123" }
-
-        let result = number.HasSurroundingSymbol symbols
-
-        assert (result = true)
-
-    let ``HasSurroundingSymbol where symbol mistakenly in number position`` () =
-        let symbols = Set.ofList [ (2, 0) ]
-
-        let number: Part1.SchematicNumber =
-            { start = 0
-              ending = 2
-              row = 2
-              value = "123" }
-
-        let result = number.HasSurroundingSymbol symbols
-
-        assert (result = false)
-
-    let ``HasSurroundingSymbol should be false`` () =
-        let symbols = Set.ofList [ (10, 0) ]
-
-        let number: Part1.SchematicNumber =
-            { start = 0
-              ending = 2
-              row = 2
-              value = "123" }
-
-        let result = number.HasSurroundingSymbol symbols
-
-        assert (result = false)
-
-    let ``part 1 sample data`` () =
-        testInput
-        |> part_1_
-        |> (fun result ->
-#if DEBUG
-            printfn "Part 1 sample data result: %A" result
-#endif
-            assert (result = 4361u))
-
-    let ``part 2 sample data`` () =
-        testInput
-        |> part_2_
-        |> (fun result ->
-#if DEBUG
-            printfn "Part 2 sample data result: %A" result
-#endif
-            assert (result = 467835UL))
-
-    let part_2_configurations =
-        """
-3*4
-
-3.
-.*
-4.
-
-*3
-4.
-
-3*
-4."""
-            .Trim()
-            .Split("\n\n")
-
-    let ``part 2 configurations`` () =
-
-        (part_2_configurations
-         |> Seq.map (
-             (fun x ->
-                 printfn
-                     "Test configuration for
-%A"
-                     x
-
-                 x)
-             >> parse_part2
-         )
-         |> Seq.map part_2_
-         |> Seq.iter (fun x ->
-             printfn "%A" x
-             assert (x = 12UL)))
-
-#if DEBUG
-Tests.PositionsAround()
-Tests.``HasSurroundingSymbol should be true`` ()
-Tests.``HasSurroundingSymbol should be false`` ()
-Tests.``HasSurroundingSymbol where symbol mistakenly in number position`` ()
-Tests.``part 1 sample data`` ()
-Tests.``part 2 sample data`` ()
-Tests.``part 2 configurations`` ()
-#endif

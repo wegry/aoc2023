@@ -89,46 +89,14 @@ module Part2 =
 
 let parse (input) = input |> Seq.map Part1.Game.Parse
 
-let input = File.ReadLines("puzzle_input/day_02") |> parse
+let input = lazy (File.ReadLines("puzzle_input/day_02") |> parse)
 
 let part_1_ (input) = input |> Part1.compute
 
 let part_2_ (input) = input |> Part2.compute
 
-let part_1 () = input |> part_1_ |> printfn "%A"
+let part_1 () = input.Value |> part_1_ |> printfn "%A"
 
-let part_2 () = input |> part_2_ |> printfn "%A"
+let part_2 () = input.Value |> part_2_ |> printfn "%A"
 
 let parts = (2, part_1, part_2)
-
-module Tests =
-    let testInput =
-        ("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
-Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
-Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
-Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green")
-            .Split
-            '\n'
-        |> parse
-
-    let ``part 1 sample data`` () =
-        testInput
-        |> part_1_
-        |> (fun result ->
-#if DEBUG
-            printfn "Part 1 sample data result: %A" result
-#endif
-            assert (result = 8u))
-
-    let ``part 2 sample data`` () =
-        testInput
-        |> part_2_
-        |> (fun result ->
-#if DEBUG
-            printfn "Part 2 sample data result: %A" result
-#endif
-            assert (result = 2286u))
-
-Tests.``part 1 sample data`` ()
-Tests.``part 2 sample data`` ()

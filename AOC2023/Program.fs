@@ -1,6 +1,7 @@
 ﻿type Day = int * (unit -> unit) * (unit -> unit)
 
-let Days: Day[] = [| Day04.parts; Day03.parts; Day02.parts; Day01.parts |]
+let Days: Day[] =
+    [| Day05.parts; Day04.parts; Day03.parts; Day02.parts; Day01.parts |]
 
 // https://stackoverflow.com/a/4646066/1924257
 let duration f =
@@ -18,7 +19,7 @@ let main args =
     |> if Array.isEmpty args then
            id
        else
-           Array.filter (fun (day, _, _) -> args.[0] = day.ToString())
+           Array.filter (fun (day, _, _) -> int args.[0] = day)
     |> Array.iter (fun (day, part_1, part_2) ->
         printfn "\nDay %i" day
         printfn "Part 1"

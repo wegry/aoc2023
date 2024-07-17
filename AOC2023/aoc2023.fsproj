@@ -6,9 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Utils.fs" />
-    <Compile Include="src/*.fs" />
-    <Compile Include="Program.fs" />
+    <Compile Include="../Utils.fs" />
+    <Compile Include="*.fs" />
   </ItemGroup>
+  <PropertyGroup>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
 
 </Project>

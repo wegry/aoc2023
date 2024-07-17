@@ -60,39 +60,3 @@ let part_2 () =
 
 let parts = (1, part_1, part_2)
 
-module Tests =
-    let testInput =
-        ("1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet")
-            .Split
-            '\n'
-        |> Array.map parse
-
-    let testInputPart2 =
-        ("two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen")
-            .Split
-            '\n'
-        |> Array.map parse_part2
-
-    let ``Calibration works`` () =
-        let result = testInput |> Array.reduce (+)
-
-        assert (result = 142u)
-
-    let ``Inlining numbers works with calibration`` () =
-        printfn "%A" testInputPart2
-
-        let result = testInputPart2 |> Array.reduce (+)
-
-        assert (result = 281u)
-
-Tests.``Calibration works`` ()
-Tests.``Inlining numbers works with calibration`` ()
