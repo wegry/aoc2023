@@ -90,4 +90,3 @@ let part_1 () = input |> part_1_ |> printfn "%A"
 let part_2 () = input |> part_2_ |> printfn "%A"
 
 let parts = (4, part_1, part_2)
-

@@ -1,7 +1,7 @@
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
 [<TestClass>]
-type Day01 () =
+type Day01() =
     let testInput =
         ("1abc2
 pqr3stu8vwx
@@ -25,19 +25,19 @@ zoneight234
 
 
     [<TestMethod>]
-    member _.``Calibration works`` () =
+    member _.``Calibration works``() =
         let result = testInput |> Array.reduce (+)
 
         Assert.AreEqual(result, 142u)
 
     [<TestMethod>]
-    member _.``Inlining numbers works with calibration`` () =
+    member _.``Inlining numbers works with calibration``() =
         let result = testInputPart2 |> Array.reduce (+)
 
         Assert.AreEqual(result, 281u)
 
 [<TestClass>]
-type Day02 () =
+type Day02() =
     let testInput =
         ("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
 Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
@@ -49,17 +49,17 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green")
         |> Day02.parse
 
     [<TestMethod>]
-    member _.``part 1 sample data`` () =
+    member _.``part 1 sample data``() =
         testInput
         |> Day02.part_1_
         |> (fun result ->
 #if DEBUG
             printfn "Part 1 sample data result: %A" result
 #endif
-            Assert.AreEqual(result , 8u))
+            Assert.AreEqual(result, 8u))
 
     [<TestMethod>]
-    member _.``part 2 sample data`` () =
+    member _.``part 2 sample data``() =
         testInput
         |> Day02.part_2_
         |> (fun result ->
@@ -69,7 +69,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green")
             Assert.AreEqual(result, 2286u))
 
 [<TestClass>]
-type Day03 () =
+type Day03() =
     let testInput =
         ("
 467..114..
@@ -109,7 +109,7 @@ type Day03 () =
     let parse_part2 (input: string) = input.Trim().Split() |> Day03.parse
 
     [<TestMethod>]
-    member _.``PositionsAround`` () =
+    member _.``PositionsAround``() =
         let number: Day03.Part1.SchematicNumber =
             { start = 0
               ending = 2
@@ -118,11 +118,11 @@ type Day03 () =
 
         let result = number.PositionsArround()
 
-        Assert.AreEqual (result |> Seq.length , 12)
+        Assert.AreEqual(result |> Seq.length, 12)
 
 
     [<TestMethod>]
-    member _.``HasSurroundingSymbol should be true`` () =
+    member _.``HasSurroundingSymbol should be true``() =
         let symbols = Set.ofList [ (1, 0) ]
 
         let number: Day03.Part1.SchematicNumber =
@@ -136,7 +136,7 @@ type Day03 () =
         Assert.IsTrue result
 
     [<TestMethod>]
-    member _.``HasSurroundingSymbol where symbol mistakenly in number position`` () =
+    member _.``HasSurroundingSymbol where symbol mistakenly in number position``() =
         let symbols = Set.ofList [ (2, 0) ]
 
         let number: Day03.Part1.SchematicNumber =
@@ -147,10 +147,10 @@ type Day03 () =
 
         let result = number.HasSurroundingSymbol symbols
 
-        Assert.IsFalse (result )
+        Assert.IsFalse(result)
 
     [<TestMethod>]
-     member _.``HasSurroundingSymbol should be false`` () =
+    member _.``HasSurroundingSymbol should be false``() =
         let symbols = Set.ofList [ (10, 0) ]
 
         let number: Day03.Part1.SchematicNumber =
@@ -164,27 +164,27 @@ type Day03 () =
         Assert.IsFalse result
 
     [<TestMethod>]
-    member _.``part 1 sample data`` () =
+    member _.``part 1 sample data``() =
         testInput
         |> Day03.part_1_
         |> (fun result ->
 #if DEBUG
             printfn "Part 1 sample data result: %A" result
 #endif
-            Assert.AreEqual (result , 4361u))
+            Assert.AreEqual(result, 4361u))
 
     [<TestMethod>]
-    member _.``part 2 sample data`` () =
+    member _.``part 2 sample data``() =
         testInput
         |> Day03.part_2_
         |> (fun result ->
 #if DEBUG
             printfn "Part 2 sample data result: %A" result
 #endif
-            Assert.AreEqual (result , 467835UL))
+            Assert.AreEqual(result, 467835UL))
 
     [<TestMethod>]
-    member _.``part 2 configurations`` () =
+    member _.``part 2 configurations``() =
 
         (part_2_configurations
          |> Seq.map (
@@ -204,7 +204,7 @@ type Day03 () =
 
 
 [<TestClass>]
-type Day04 () =
+type Day04() =
     let testInput =
         ("Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
@@ -217,28 +217,28 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11")
         |> Day04.parse
 
     [<TestMethod>]
-    member _.``part 1 sample data`` () =
+    member _.``part 1 sample data``() =
         testInput
         |> Day04.part_1_
         |> (fun result ->
 #if DEBUG
             printfn "Part 1 sample data result: %A" result
 #endif
-            Assert.AreEqual(result , 13u))
+            Assert.AreEqual(result, 13u))
 
     [<TestMethod>]
-    member _.``part 2 sample data`` () =
+    member _.``part 2 sample data``() =
         testInput
         |> Day04.part_2_
         |> (fun result ->
 #if DEBUG
             printfn "Part 2 sample data result: %A" result
 #endif
-            Assert.AreEqual (result , 30))
+            Assert.AreEqual(result, 30))
 
 
 [<TestClass>]
-type Day05 () =
+type Day05() =
     let testInput =
         ("seeds: 79 14 55 13
 
@@ -273,30 +273,30 @@ temperature-to-humidity map:
 humidity-to-location map:
 60 56 37
 56 93 4")
-            .ReplaceLineEndings( "\n")
-            .Split '\n'
+            .ReplaceLineEndings("\n")
+            .Split
+            '\n'
 
     let part_1_test_input = testInput |> Day05.parse
 
     [<TestMethod>]
-    member _.``part 1 sample data`` () =
+    member _.``part 1 sample data``() =
         part_1_test_input
         |> Day05.part_1_
         |> (fun result ->
 #if DEBUG
             printfn "Part 1 sample data result: %A" result
 #endif
-            Assert.AreEqual (result , 35UL))
+            Assert.AreEqual(result, 35UL))
 
     [<TestMethod>]
-    member _.``part 2 sample data`` () =
+    member _.``part 2 sample data``() =
         printfn "Part 2"
+
         testInput
         |> Day05.part_2_
         |> (fun result ->
 #if DEBUG
             printfn "Part 2 sample data result: %A" result
 #endif
-            Assert.AreEqual (result , 46UL))
-
-
+            Assert.AreEqual(result, 46UL))

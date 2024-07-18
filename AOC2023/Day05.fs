@@ -170,8 +170,10 @@ let part_2_ (raw: string seq) =
     let input = Part2.parse raw
 
     let result =
-        input.seeds |> Seq.chunkBySize 1_000_000 |>
-         Seq.map ( fun x -> x |> Array.Parallel.map (fun x -> input.Lookup x) |> Array.Parallel.minBy (fun x -> x.index)) |> Seq.min
+        input.seeds
+        |> Seq.distinct
+        |> Seq.map input.Lookup
+        |> Seq.minBy (fun x -> x.index)
 
     result.index
 
@@ -181,4 +183,3 @@ let part_1 () = input |> part_1_ |> printfn "%A"
 let part_2 () = unparsed |> part_2_ |> printfn "%A"
 
 let parts = (5, part_1, part_2)
-

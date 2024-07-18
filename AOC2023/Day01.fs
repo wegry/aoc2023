@@ -59,4 +59,3 @@ let part_2 () =
     input |> Array.map parse_part2 |> Array.reduce (+) |> printfn "%A"
 
 let parts = (1, part_1, part_2)
-
