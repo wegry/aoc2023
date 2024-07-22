@@ -2,8 +2,9 @@ module Day05
 
 open System.IO
 open FSharp.Core
+open FSharp.Collections.ParallelSeq
 
-module Part1 =
+module Shared =
     type Category =
         | Fertilizer
         | Humidity
@@ -50,6 +51,17 @@ module Part1 =
         member this.Contains(index: uint64) =
             this.source_start <= index && this.source_start + this.length > index
 
+        member this.source_end() = this.source_start + this.length - 1UL
+
+    type Part2Range = { start: uint64; length: uint64 }
+
+    type Part2Range with
+        member this.``end``() = this.start + this.length - 1UL
+
+    type Overlap =
+        | Outside of Part2Range
+        | Inside of Part2Range
+
     type Mapping =
         { source: Category
           destination: Category
@@ -70,10 +82,7 @@ module Part1 =
                 | [| x; y |] -> x, y
                 | _ -> failwith "Invalid input"
 
-            let ranges =
-                rest.Split "\n"
-                |> Array.map Range.Parse
-                |> Array.sortBy (fun x -> x.source_start)
+            let ranges = rest.Split "\n" |> Array.map Range.Parse |> Array.sortBy _.source_start
 
             { source = Category.Of source
               destination = Category.Of dest
@@ -86,7 +95,9 @@ module Part1 =
             // Default to the input
             |> Option.defaultValue index
 
+
     type LookupType = { category: Category; index: uint64 }
+
 
     type Almanac =
         { seeds: uint64 seq
@@ -132,12 +143,14 @@ module Part1 =
             curr
 
 
+
 module Part2 =
+    open Shared
 
     let parse (input: string seq) =
         let raw_seeds = Seq.head input
 
-        let part_1_almanac = input |> Part1.Almanac.Parse
+        let part_1_almanac = input |> Almanac.Parse
 
         let seeds =
             raw_seeds
@@ -147,18 +160,20 @@ module Part2 =
             |> Seq.collect (function
                 | [| x; y |] -> { x .. (x + y) }
                 | x -> failwithf "Invalid input: %A" x)
+            |> Seq.toArray
 
         let part_2_ranges = { part_1_almanac with seeds = seeds }
 
         part_2_ranges
 
-let parse (input: string seq) = input |> Part1.Almanac.Parse
+
+let parse (input: string seq) = input |> Shared.Almanac.Parse
 
 let unparsed = File.ReadLines("puzzle_input/day_05")
 
 let input = unparsed |> parse
 
-let part_1_ (input: Part1.Almanac) =
+let part_1_ (input: Shared.Almanac) =
     let result =
         input.seeds |> Seq.map (fun x -> input.Lookup x) |> Seq.minBy (fun x -> x.index)
 
@@ -170,10 +185,7 @@ let part_2_ (raw: string seq) =
     let input = Part2.parse raw
 
     let result =
-        input.seeds
-        |> Seq.distinct
-        |> Seq.map input.Lookup
-        |> Seq.minBy (fun x -> x.index)
+        input.seeds |> PSeq.distinct |> Seq.map input.Lookup |> Seq.minBy _.index
 
     result.index
 

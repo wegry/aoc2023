@@ -9,6 +9,10 @@
     <Compile Include="../Utils.fs" />
     <Compile Include="*.fs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Collections.ParallelSeq" Version="1.2.0" />
+  </ItemGroup>
   <PropertyGroup>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
