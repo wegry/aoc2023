@@ -50,7 +50,6 @@ let tests =
                       }
                   ))
                   |> Array.sortDescending
-                  |> Utils.tee
                   |> Array.map _.``type``
 
               Expect.equal
