@@ -70,5 +70,5 @@ ZZZ = (AAA, BBB)")
 XXX = (XXX, XXX)")
 
               let result = input.Split '\n' |> parse |> part_2_
-              Expect.equal result 6 ""
+              Expect.equal result 6UL ""
           } ]
